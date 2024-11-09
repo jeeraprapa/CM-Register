@@ -7,8 +7,15 @@
         </div>
         <div class="col-md-12">
 
-            <form action="{{ route('admin.user.add') }}" method="post">
+            <form action="{{ route('admin.user.add') }}" method="post" enctype="multipart/form-data">
                 @csrf
+                <div class="form-group">
+                    <label for="name">Avatar</label>
+                    <input type="file" name="avatar" id="avatar" class="form-control-file">
+                    @error('avatar')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}">

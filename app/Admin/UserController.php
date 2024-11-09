@@ -24,16 +24,21 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
             'phone' => 'required',
             'location' => 'required',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $user = new User();
         $user->fill($request->all());
         $user->password = bcrypt($request->password);
         $user->save();
+
+        if($request->hasFile('avatar')){
+            $user->addMedia($request->file('avatar'))->toMediaCollection('avatar');
+        }
 
         return redirect()->route('admin.user.list');
     }
@@ -47,9 +52,10 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email,'.$user->id,
             'phone' => 'required',
             'location' => 'required',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $user->fill($request->all());
@@ -58,6 +64,11 @@ class UserController extends Controller
             $user->password = bcrypt($request->password);
         }
         $user->save();
+
+        if($request->hasFile('avatar')){
+            $user->clearMediaCollection('avatar');
+            $user->addMedia($request->file('avatar'))->toMediaCollection('avatar');
+        }
 
         return redirect()->route('admin.user.list');
     }

@@ -8,9 +8,21 @@
         </div>
         <div class="col-md-12">
 
-            <form action="{{ route('admin.user.edit',$user->id) }}" method="post">
+            <form action="{{ route('admin.user.edit',$user->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('put')
+                <div class="form-group">
+                    @if($user->getFirstMediaUrl('avatar'))
+                        <div class="text-center">
+                            <img src="{{ $user->getFirstMediaUrl('avatar') }}" alt="" style="width: auto; height: 200px;" class="img-thumbnail">
+                        </div>
+                    @endif
+                    <label for="name">Avatar</label>
+                    <input type="file" name="avatar" id="avatar" class="form-control-file">
+                    @error('avatar')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" name="name" id="name" class="form-control" value="{{ $user->name }}">

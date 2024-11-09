@@ -16,7 +16,7 @@ class UserProfileController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email,'.auth()->id(),
             'phone' => 'required',
             'location' => 'required',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
