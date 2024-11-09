@@ -3,22 +3,25 @@ use App\Admin\AdminAuthController;
 use App\Admin\DashboardController;
 use App\Admin\UserController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserAuthController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('http.index');
+})->name('index');
 
 //auth
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('user.login');
+Route::get('/login',[UserAuthController::class,'login'])->name('user.login');
+Route::post('/login',[UserAuthController::class,'postLogin'])->name('user.postLogin');
 
 Route::group(['prefix'=>'user','middleware'=>'auth:user'],function () {
     //logout
-    Route::get('/logout', function () {
-        return 'logout';
-    })->name('user.logout');
+    Route::get('/logout', [UserAuthController::class,'logout'])->name('user.logout');
+    //user index
+    Route::get('/index',[UserProfileController::class,'index'])->name('user.index');
+    //update profile
+    Route::put('/update',[UserProfileController::class,'updateProfile'])->name('user.profile.update');
 });
 
 //register

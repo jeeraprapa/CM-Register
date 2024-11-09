@@ -9,7 +9,7 @@ class UserAuthController extends Controller
 {
     public function login()
     {
-        return view('user.auth.login');
+        return view('http.user.login');
     }
 
     public function postLogin(Request $request)
@@ -22,8 +22,7 @@ class UserAuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::guard('user')
-                ->attempt($credentials, $remember)) {
+        if (Auth::attempt($credentials, $remember)) {
 
             return redirect()
                 ->route('user.index')
@@ -35,7 +34,7 @@ class UserAuthController extends Controller
 
     public function logout()
     {
-        Auth::guard('user')->logout();
+        Auth::logout();
 
         return redirect()->route('user.login');
     }

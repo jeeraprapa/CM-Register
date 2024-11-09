@@ -53,7 +53,7 @@
                     <!-- Nested Row within Card Body -->
                     <div class="row">
                         <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                            <img src="https://img.freepik.com/free-vector/access-control-system-abstract-concept_335657-3180.jpg?t=st=1731174261~exp=1731177861~hmac=fa68481d844ec24406d39d5f205cf51f3635fd0504a84fa62154fdd293deb916&w=740" alt="login" style="width: 100%; height: 100%">
+                            <img src="https://img.freepik.com/free-vector/access-control-system-abstract-concept_335657-3180.jpg" alt="login" style="width: 100%; height: 100%">
                         </div>
                         <div class="col-lg-6">
                             <div class="p-5">
